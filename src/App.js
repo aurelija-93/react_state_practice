@@ -37,14 +37,13 @@ function App() {
     <div className="App">
       <h1>To-Do List</h1>
       <hr></hr>
+      <form onSubmit={handleFormSubmit}>
+        <input id='new-todo' type='text' value={newTodo} onChange={handleTodoInput}/>
+        <input type='submit' value='Save Item' />
+      </form>
       <ul>
         {todoNodes}
       </ul>
-      <form onSubmit={handleFormSubmit}>
-        <label htmlFor='new-todo'>Add task:</label>
-        <input id='new-todo' type='text' value={newTodo} onChange={handleTodoInput}/>
-        <input type='submit' value='Add task' />
-      </form>
     </div>
   );
 }
