@@ -3,18 +3,20 @@ import './App.css';
 
 function App() {
   const [todos, setTodos] = useState([
-    'Buy shopping',
-    'Clean bathroom',
-    "Car's MOT"
+    { name: 'Buy shopping', priority: 'high' },
+    { name: 'Clean bathroom', priority: 'low' },
+    { name: "Car's MOT", priority: 'high' }
   ]);
 
   const [newTodo, setNewTodo] = useState('');
 
+  const [newTodoPriority, setNewTodoPriority] = useState('high');
+
   const todoNodes = todos.map(function(todo, index) {
     return (
-      <li key={index}>
+      <li key={index} className={todo.priority}>
         <span>
-          {todo}
+          {todo.name}
         </span>
       </li>
     )
@@ -22,10 +24,14 @@ function App() {
 
   const handleFormSubmit = function(evt) {
     evt.preventDefault();
-    const todo = newTodo;
+    const todo = {
+      name: newTodo,
+      priority: newTodoPriority
+    };
     const copyTodos = [...todos, todo];
     setTodos(copyTodos);
     setNewTodo('');
+    setNewTodoPriority('high');
   }
 
   const handleTodoInput = function(evt) {
@@ -38,7 +44,11 @@ function App() {
       <h1>To-Do List</h1>
       <hr></hr>
       <form onSubmit={handleFormSubmit}>
-        <input id='new-todo' type='text' value={newTodo} onChange={handleTodoInput}/>
+        <input type='text' value={newTodo} onChange={handleTodoInput}/>
+        <label htmlFor='high'>High</label>
+        <input id='high' type='radio' value='high' name='priority' checked onClick={() => setNewTodoPriority('high')}/>
+        <label htmlFor='low'>Low</label>
+        <input id='low' type='radio' value='low' name='priority' onClick={() => setNewTodoPriority('low')}/>
         <input type='submit' value='Save Item' />
       </form>
       <ul>
