@@ -20,6 +20,19 @@ function App() {
     )
   })
 
+  const handleFormSubmit = function(evt) {
+    evt.preventDefault();
+    const todo = newTodo;
+    const copyTodos = [...todos, todo];
+    setTodos(copyTodos);
+    setNewTodo('');
+  }
+
+  const handleTodoInput = function(evt) {
+    const value = evt.target.value;
+    setNewTodo(value);
+  }
+
   return (
     <div className="App">
       <h1>To-Do List</h1>
@@ -27,9 +40,11 @@ function App() {
       <ul>
         {todoNodes}
       </ul>
-      <label htmlFor='new-todo'>Add task:</label>
-      <input id='new-todo' type='text' value={newTodo} />
-      <input type='submit' value='Add task' />
+      <form onSubmit={handleFormSubmit}>
+        <label htmlFor='new-todo'>Add task:</label>
+        <input id='new-todo' type='text' value={newTodo} onChange={handleTodoInput}/>
+        <input type='submit' value='Add task' />
+      </form>
     </div>
   );
 }
